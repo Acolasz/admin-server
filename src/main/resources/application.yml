@@ -1,2 +1,7 @@
 server:
   port: 9000
+spring:
+  security:
+    user:
+      name: ${spring.boot.admin.username}
+      password: ${spring.boot.admin.password}
