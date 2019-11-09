@@ -12,26 +12,26 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 @EnableAdminServer
 public class AdminServerApplication {
 
-	private final String adminContextPath;
+    private final String adminContextPath;
 
-	public AdminServerApplication(AdminServerProperties adminServerProperties) {
-		this.adminContextPath = adminServerProperties.getContextPath();
-	}
+    public AdminServerApplication(AdminServerProperties adminServerProperties) {
+        this.adminContextPath = adminServerProperties.getContextPath();
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(AdminServerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(AdminServerApplication.class, args);
+    }
 
-	@Bean
-	public SecurityWebFilterChain securityWebFilterChainSecure(ServerHttpSecurity http) {
+    @Bean
+    public SecurityWebFilterChain securityWebFilterChainSecure(ServerHttpSecurity http) {
 
-		return http.authorizeExchange()
-				.pathMatchers(adminContextPath + "/assets/**").permitAll()
-				.pathMatchers(adminContextPath + "/login").permitAll()
-				.anyExchange().authenticated()
-				.and().formLogin().loginPage(adminContextPath + "/login")
-				.and().logout().logoutUrl(adminContextPath + "/logout")
-				.and().httpBasic()
-				.and().csrf().disable().build();
-	}
+        return http.authorizeExchange()
+                .pathMatchers(adminContextPath + "/assets/**").permitAll()
+                .pathMatchers(adminContextPath + "/login").permitAll()
+                .anyExchange().authenticated()
+                .and().formLogin().loginPage(adminContextPath + "/login")
+                .and().logout().logoutUrl(adminContextPath + "/logout")
+                .and().httpBasic()
+                .and().csrf().disable().build();
+    }
 }
